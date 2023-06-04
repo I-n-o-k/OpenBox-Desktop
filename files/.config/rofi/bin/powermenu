@@ -25,7 +25,6 @@ if [[ "$DIR" == "powermenus" ]]; then
 	ddir="$HOME/.config/rofi/$DIR"
 else
 	logout=" Exit Openbox"
-	shutdown=" Kill VNC Server"
 	ddir="$HOME/.config/rofi/dialogs"
 fi
 
@@ -39,20 +38,10 @@ rofi -dmenu\
 
 # Variable passed to rofi
 MSG="Options : yes/no/y/n"
-options="$logout\n$shutdown"
+options="$logout"
 
 chosen="$(echo -e "$options" | $rofi_command -p "UP - $uptime" -dmenu -selected-row 0)"
 case $chosen in
-    $shutdown)
-		ans=$(rdialog &)
-		if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
-			killall Xvnc
-		elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
-			exit
-        else
-			rofi -theme "$ddir/confirm.rasi" -e "$MSG"
-        fi
-        ;;
     $logout)
 		ans=$(rdialog &)
 		if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then

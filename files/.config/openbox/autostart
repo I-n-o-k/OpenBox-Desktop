@@ -11,8 +11,5 @@ sleep 2
 ## Launch Polybar
 sh ~/.config/polybar/launch.sh
 
-## Start Music Player Daemon
-mpd &
-
 ## Thunar Daemon
 thunar --daemon &

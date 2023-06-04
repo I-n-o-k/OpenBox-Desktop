@@ -48,10 +48,7 @@ setup_chromium() {
 	{ reset_color; sudo apt remove chromium* -yqq && sudo apt autoremove -yqq; }
 	{ reset_color; sudo apt update -qq; sudo apt install software-properties-common gnupg --no-install-recommends -y -qq; }
 	echo -e ${CYAN}"\n[*] Adding Debian repo for Chromium installation... \n"
-    	{ reset_color; sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak; }
-        { reset_color; echo "deb http://ftp.debian.org/debian buster main" | sudo tee >> /etc/apt/sources.list; }
-        { reset_color; echo "deb http://ftp.debian.org/debian buster-updates main" | sudo tee >> /etc/apt/sources.list; }
-        { reset_color; echo "deb http://ftp.debian.org/debian buster-backports main" | sudo tee >> /etc/apt/sources.list; }
+    	{ reset_color; sudo cp -rf $(pwd)/debian.list /etc/apt/sources.list.d; }
         { reset_color; sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DCC9EFBF77E11517; }
         { reset_color; sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138; }
         { reset_color; sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA8E81B4331F7F50; }
@@ -67,26 +64,23 @@ setup_chromium() {
 			continue
 		fi
 	done
-	{ reset_color; sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list; }
-
+    reset_color
 }
 ## Update, X11, Program Installation
 _apts=(lightdm bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon \
 		geany git gtk2.0 gtk3.0 imagemagick jq leafpad man mpc mpd mutt ncmpcpp \
-		ncurses-utils neofetch netsurf obconf openbox openssl-tool polybar ranger rofi \
+		ncurses-utils neofetch obconf openbox openssl-tool polybar ranger rofi \
         nautilus startup-notification vim wget xarchiver xbitmaps xcompmgr \
 		xfce4-settings dbus-x11 xmlstarlet xorg )
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
-        { reset_color; echo "deb http://ports.ubuntu.com/ubuntu-ports/ bionic main" >> /etc/apt/sources.list; }
-        { reset_color; echo "deb http://ports.ubuntu.com/ubuntu-ports/ bionic-updates main" >> /etc/apt/sources.list; }
 	{ reset_color; sudo update; sudo apt autoclean; sudo apt upgrade -y; }
 	echo -e ${CYAN}"\n[*] Installing required programs... \n"
 	for package in "${_apts[@]}"; do
 		{ reset_color; sudo apt-get install -y "$package"; }
-		{ reset_color; sed -i 's/chromium %U/chromium --no-sandbox %U/g' /usr/share/applications/chromium.desktop; }
+		{ reset_color; sudo apt-get autoremove -y; }
 		_iapt=$(apt list-installed $package 2>/dev/null | tail -n 1)
 		_checkapt=${_iapt%/*}
 		if [[ "$_checkapt" == "$package" ]]; then
@@ -101,11 +95,11 @@ setup_base() {
 setup_config() {
 	# backup
 	configs=($(ls -A $(pwd)/files))
-	echo -e ${RED}"\n[*] Backing up your files and dirs... "
+	echo -e ${RED}"\n[*] Delete old files and dirs... "
 	for file in "${configs[@]}"; do
 		echo -e ${CYAN}"\n[*] Backing up $file..."
 		if [[ -f "$HOME/$file" || -d "$HOME/$file" ]]; then
-			{ reset_color; mv -u ${HOME}/${file}{,.old}; }
+			{ reset_color; rm-rf ${HOME}/${file}; }
 		else
 			echo -e ${MAGENTA}"\n[!] $file Doesn't Exist."			
 		fi

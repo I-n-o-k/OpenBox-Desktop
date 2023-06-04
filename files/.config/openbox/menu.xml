@@ -23,15 +23,37 @@
 			</action>
 		</item>
 		<separator/>
+		<menu id="root-menu-srct" label="Terminal">
+			<item label="Nano">
+				<action name="Execute">
+					<execute>gnome-terminal -e nano</execute>
+				</action>
+			</item>
+			<item label="Ranger">
+				<action name="Execute">
+					<execute>gnome-terminal -e ranger</execute>
+				</action>
+			</item>
+			<item label="Htop">
+				<action name="Execute">
+					<execute>gnome-terminal -e htop</execute>
+				</action>
+			</item>
+		</menu>
 		<menu id="root-menu-8399" label="Quick Links">
 			<item label="Google">
 				<action name="Execute">
 					<execute>chromium https://www.google.com</execute>
 				</action>
 			</item>
-			<item label="Youtube.com">
+			<item label="Youtube">
 				<action name="Execute">
-					<execute>chromium https://www.wikipedia.org</execute>
+					<execute>chromium https://www.youtube.org</execute>
+				</action>
+			</item>
+			<item label="Twitter">
+				<action name="Execute">
+					<execute>chromium https://www.twitter.com</execute>
 				</action>
 			</item>
 			<item label="GitHub">
@@ -109,11 +131,6 @@
 			<item label="Exit Openbox">
 				<action name="Execute">
 					<command>openbox --exit</command>
-				</action>
-			</item>
-			<item label="Kill VNC Server">
-				<action name="Execute">
-					<execute>killall Xvnc</execute>
 				</action>
 			</item>
 		</menu>
