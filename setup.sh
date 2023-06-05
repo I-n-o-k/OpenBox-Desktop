@@ -64,7 +64,7 @@ setup_chromium() {
 			continue
 		fi
 	done
-    reset_color
+    { reset_color; sudo rm -rf /etc/apt/sources.list.d/debian.list; }
 }
 ## Update, X11, Program Installation
 _apts=(lightdm bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon \
