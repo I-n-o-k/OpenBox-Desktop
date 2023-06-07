@@ -38,14 +38,9 @@ usage() {
 	echo -e ${ORANGE}"Usages : $(basename $0) --install"
 }
 
-## Update, chromium polybar xfconf, Program Installation
-_anu=(chromium polybar xfconf )
-
 setup_chromium() {
 	echo -e ${RED}"\n[*] Installing Polybar chromium..."
         echo -e ${CYAN}"\n[*] Removing distribution provided chromium packages and dependencies..."
-	{ reset_color; sudo apt remove snapd -yqq -qq && sudo apt autoremove -yqq; }
-	{ reset_color; sudo apt remove chromium* -yqq && sudo apt autoremove -yqq; }
 	{ reset_color; sudo apt update -qq; sudo apt install software-properties-common gnupg --no-install-recommends -y -qq; }
 	echo -e ${CYAN}"\n[*] Adding Debian repo for Chromium installation... \n"
     	{ reset_color; sudo cp -rf $(pwd)/debian.list /etc/apt/sources.list.d; }
@@ -56,7 +51,7 @@ setup_chromium() {
 	{ reset_color; sudo apt update; }
 	echo -e ${CYAN}"\n[*] Installing required programs... \n"
 	for packages in "${_anu[@]}"; do
-		{ reset_color; sudo apt-get install -y chromium polybar xfconf; }
+		{ reset_color; sudo apt-get install -y chromium; }
 		_iapt=$(apt list-installed $packages 2>/dev/null | tail -n 1)
 		_checkapt=${_iapt%/*}
 		if [[ "$_checkapt" == "$packages" ]]; then
@@ -65,17 +60,15 @@ setup_chromium() {
 		fi
 	done
     { reset_color; sudo rm -rf /etc/apt/sources.list.d/debian.list; }
+
 }
+
 ## Update, X11, Program Installation
-_apts=(lightdm bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon \
-		geany git gtk2.0 gtk3.0 imagemagick jq leafpad man mpc mpd mutt ncmpcpp \
-		ncurses-utils neofetch obconf openbox openssl-tool polybar ranger rofi \
-        nautilus startup-notification vim wget xarchiver xbitmaps xcompmgr \
-		xfce4-settings dbus-x11 xmlstarlet xorg )
+_apts=(lightdm feh rsync python psmisc wireless-tools alsa-utils brightnessctl python3-psutil nitrogen dunst tint2 gsimplecal rofi lxappearance qt5ct qt5-style-plugins lxpolkit xautolock rxvt-unicode xclip scrot jq nautilus ffmpegthumbnailer tumbler w3m w3m-img geany viewnior mpv mpd mpc ncmpcpp pavucontrol parcellite neofetch htop imagemagick ffmpeg playerctl xsettingsd)
 
 setup_base() {
-	echo -e ${RED}"\n[*] Installing Termux Desktop..."
-	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
+	echo -e ${RED}"\n[*] Installing Dependency..."
+	echo -e ${CYAN}"\n[*] Updating Dependency \n"
 	{ reset_color; sudo update; sudo apt autoclean; sudo apt upgrade -y; }
 	echo -e ${CYAN}"\n[*] Installing required programs... \n"
 	for package in "${_apts[@]}"; do
@@ -97,14 +90,12 @@ setup_config() {
 	configs=($(ls -A $(pwd)/files))
 	echo -e ${RED}"\n[*] Delete old files and dirs... "
 	for file in "${configs[@]}"; do
-		echo -e ${CYAN}"\n[*] Backing up $file..."
+		echo -e ${CYAN}"\n[*] Delete $file..."
 		if [[ -f "$HOME/$file" || -d "$HOME/$file" ]]; then
-			{ reset_color; rm-rf ${HOME}/${file}; }
-		else
-			echo -e ${MAGENTA}"\n[!] $file Doesn't Exist."			
+			{ reset_color; rm -rf ${HOME}/${file}; }
 		fi
 	done
-	
+
 	# Copy config files
 	echo -e ${RED}"\n[*] Coping config files... "
 	for _config in "${configs[@]}"; do
@@ -118,8 +109,8 @@ setup_config() {
 
 ## Install OpenBOX Desktop
 install_td() {
-	setup_chromium
-	setup_base
+    setup_chromium
+    setup_base
 	setup_config
 }
 

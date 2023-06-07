@@ -1,140 +1,174 @@
-<?xml version="1.0" encoding="utf-8"?>
-<openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/  file:///usr/share/openbox/menu.xsd">
-  <menu id="root-menu" title="Menu" label="Openbox 3">
-<!--	<separator label="Main Menu"/>  -->
-		<item label="Terminal Emulator">
-			<action name="Execute">
-				<command>gnome-terminal</command>
-			</action>
-		</item>
-		<item label="Web Browser">
-			<action name="Execute">
-				<command>chromium</command>
-			</action>
-		</item>
-		<item label="File Manager">
-			<action name="Execute">
-				<command>nautilus</command>
-			</action>
-		</item>
-		<item label="Text Editor">
-			<action name="Execute">
-				<command>geany</command>
-			</action>
-		</item>
-		<separator/>
-		<menu id="root-menu-srct" label="Terminal">
-			<item label="Nano">
-				<action name="Execute">
-					<execute>gnome-terminal -e nano</execute>
-				</action>
-			</item>
-			<item label="Ranger">
-				<action name="Execute">
-					<execute>gnome-terminal -e ranger</execute>
-				</action>
-			</item>
-			<item label="Htop">
-				<action name="Execute">
-					<execute>gnome-terminal -e htop</execute>
-				</action>
-			</item>
-		</menu>
-		<menu id="root-menu-8399" label="Quick Links">
-			<item label="Google">
-				<action name="Execute">
-					<execute>chromium https://www.google.com</execute>
-				</action>
-			</item>
-			<item label="Youtube">
-				<action name="Execute">
-					<execute>chromium https://www.youtube.org</execute>
-				</action>
-			</item>
-			<item label="Twitter">
-				<action name="Execute">
-					<execute>chromium https://www.twitter.com</execute>
-				</action>
-			</item>
-			<item label="GitHub">
-				<action name="Execute">
-					<execute>chromium https://www.github.com</execute>
-				</action>
-			</item>
-			<item label="Reddit">
-				<action name="Execute">
-					<execute>chromium https://www.reddit.com</execute>
-				</action>
-			</item>
-			<item label="Stackoverflow">
-				<action name="Execute">
-					<execute>chromium https://stackoverflow.com/questions</execute>
-				</action>
-			</item>
-		</menu>
-		<separator/>
-		<menu execute="ob-places-pipemenu --recent ~/" id="pipe-placesmenu" label="Places"/>
-		<menu execute="ob-recent-files-pipemenu" id="pipe-164328" label="Recent Files"/>
-		<menu id="preferences" label="Preferences">
-			<menu id="obConfig" label="Openbox">
-				<item label="Settings">
-					<action name="Execute">
-						<command>obconf</command>
-					</action>
-				</item>
-				<separator/>
-				<item label="Edit menu.xml">
-					<action name="Execute">
-						<command>exo-open ~/.config/openbox/menu.xml</command>
-					</action>
-				</item>
-				<item label="Edit rc.xml">
-					<action name="Execute">
-						<command>exo-open ~/.config/openbox/rc.xml</command>
-					</action>
-				</item>
-				<item label="Edit autostart">
-					<action name="Execute">
-						<command>exo-open ~/.config/openbox/autostart</command>
-					</action>
-				</item>
-				<separator/>
-				<item label="Openbox Reconfigure">
-					<action name="Reconfigure"/>
-				</item>
-				<item label="Openbox Restart">
-					<action name="Restart"/>
-				</item>
-			</menu>
-			<menu execute="ob-compositor" id="CompositingPipeMenu" label="Compositor"/>
-			<separator/>
-			<menu execute="change_style.sh" id="StylePipeMenu" label="Change Style"/>
-			<menu execute="change_font.sh" id="FontPipeMenu" label="Change Font"/>
-			<menu execute="change_launcher.sh" id="LauncherPipeMenu" label="Change Launcher"/>
-			<separator/>
-			<menu execute="change_wall.sh" id="wallPipeMenu" label="Change Wallpaper"/>
-			<menu execute="canvas_ob" id="CanvasPipeMenu" label="Generate Wallpaper"/>
-			<item label="Appearance Settings">
-				<action name="Execute">
-					<command>xfce4-appearance-settings</command>
-				</action>
-			</item>
-			<item label="Settings Manager">
-				<action name="Execute">
-					<command>xfce4-settings-manager</command>
-				</action>
-			</item>
-		</menu>
-		<menu execute="ob-kb-pipemenu" id="keybinds" label="Keybinds"/>
-		<separator/>
-		<menu id="root-menu-exit" label="Exit Desktop">
-			<item label="Exit Openbox">
-				<action name="Execute">
-					<command>openbox --exit</command>
-				</action>
-			</item>
-		</menu>
-	</menu>
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+    <menu id="apps-accessories-menu" label="Accessories">
+        <separator label="Accessories" />
+        <item label="Character Map">
+            <action name="Execute">
+                <command>gucharmap</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+    </menu>
+    <menu id="apps-editors-menu" label="Editors">
+        <separator label="Editors" />
+        <item label="Visual Studio Code">
+            <action name="Execute">
+                <command>code</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                    <wmclass>Code</wmclass>
+                </startupnotify>
+            </action>
+        </item>
+        <item label="Geany">
+            <action name="Execute">
+                <command>geany</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                    <wmclass>Code</wmclass>
+                </startupnotify>
+            </action>
+        </item>
+    </menu>
+    <menu id="apps-term-menu" label="Terminals">
+        <separator label="Terminals" />
+        <item label="Rxvt Unicode">
+            <action name="Execute">
+                <command>urxvt</command>
+            </action>
+        </item>
+        <item label="Kitty">
+            <action name="Execute">
+                <command>kitty</command>
+            </action>
+        </item>
+    </menu>
+    <menu id="apps-net-menu" label="Internet">
+        <separator label="Internet" />
+        <item label="Firefox">
+            <action name="Execute">
+                <command>firefox</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                    <wmclass>Firefox</wmclass>
+                </startupnotify>
+            </action>
+        </item>
+        <item label="Google Chrome">
+            <action name="Execute">
+                <command>chromium</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                    <wmclass>Google-chrome</wmclass>
+                </startupnotify>
+            </action>
+        </item>
+    </menu>
+    <menu id="apps-fileman-menu" label="File Manager">
+        <separator label="File Manager" />
+        <item label="Thunar">
+            <action name="Execute">
+                <command>nautilus</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+    </menu>
+    <menu id="scripts-menu" label="Scripts">
+        <separator label="Scripts" />
+        <item label="Power Menu">
+            <action name="Execute">
+                <command>bash -c '~/.config/rofi/scripts/powermenu.sh'</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+        <item label="Screenshots Menu">
+            <action name="Execute">
+                <command>bash -c '~/.config/rofi/scripts/screenshot.sh'</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+        <item label="Launcher">
+            <action name="Execute">
+                <command>bash -c '~/.config/rofi/scripts/appsmenu.sh'</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+    </menu>
+    <menu id="scripts-theme-menu" label="Change Theme">
+        <separator label="Change Theme" />
+        <item label="Dark Mode">
+            <action name="Execute">
+                <command>bash -c '~/.config/aether/change 2'</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+        <item label="Light Mode">
+            <action name="Execute">
+                <command>bash -c '~/.config/aether/change 1'</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+    </menu>
+    <menu id="system-menu" label="System">
+        <separator label="System" />
+        <item label="Openbox Configuration Manager">
+            <action name="Execute">
+                <command>obconf</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+        <item label="Reconfigure Openbox">
+            <action name="Reconfigure" />
+        </item>
+        <item label="Tint2 Settings">
+            <action name="Execute">
+                <command>tint2conf</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+    </menu>
+    <menu id="root-menu" label="Openbox 3">
+        <separator label="Applications" />
+        <menu id="apps-accessories-menu" icon="/home/iruha/.icons/aether/light/small/accessories-menu.png"/>
+        <menu id="apps-editors-menu" icon="/home/iruha/.icons/aether/light/small/editors-menu.png"/>
+        <menu id="apps-net-menu" icon="/home/iruha/.icons/aether/light/small/internet-menu.png"/>
+        <menu id="apps-term-menu" icon="/home/iruha/.icons/aether/light/small/terminal-menu.png"/>
+        <menu id="apps-fileman-menu" icon="/home/iruha/.icons/aether/light/small/filemanager-menu.png"/>
+        <menu id="scripts-menu" icon="/home/iruha/.icons/aether/light/small/scripts-menu.png"/>
+        <separator label="Themes" />
+        <menu id="scripts-theme-menu" icon="/home/iruha/.icons/aether/light/small/changetheme-menu.png"/>
+        <item label="Change Wallpaper" icon="/home/iruha/.icons/aether/light/small/changewp.png">
+            <action name="Execute">
+                <command>bash -c '~/.config/aether/scripts/wallpaper change'</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
+        <separator label="System" />
+        <menu id="system-menu" icon="/home/iruha/.icons/aether/light/small/system-menu.png"/>
+        <item label="Log Out" icon="/home/iruha/.icons/aether/light/small/logout.png">
+            <action name="Exit">
+                <prompt>yes</prompt>
+            </action>
+        </item>
+    </menu>
 </openbox_menu>
-<!-- vim:sw=2
--->

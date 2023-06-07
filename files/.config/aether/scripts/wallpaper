@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Load Global Variable
+source $HOME/.aether-corevar
+
+if [[ "$1" == "change" ]]; then
+    urxvt -e ~/.config/aether/scripts/change-wallpaper
+else
+    case "$WALLPAPER" in
+        "DEFAULT")
+        case "$THEME_MODE" in
+            "MINIMALISM")
+            if [[ $THEME == "aetherLight" ]]; then
+                feh --bg-fill "$WALLPAPER_LIGHT_MIN"
+            elif [[ $THEME == "aetherDark" ]]; then
+                feh --bg-fill "$WALLPAPER_DARK_MIN"
+            fi
+            ;;
+            *)
+            if [[ $THEME == "aetherLight" ]]; then
+                feh --bg-fill "$WALLPAPER_LIGHT"
+            elif [[ $THEME == "aetherDark" ]]; then
+                feh --bg-fill "$WALLPAPER_DARK"
+            fi
+            ;;
+        esac
+        ;;
+        *)
+        feh --bg-fill $WALLPAPER
+        ;;
+    esac
+fi
